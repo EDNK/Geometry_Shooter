@@ -1,7 +1,4 @@
-using System.ComponentModel;
-using Code.Scripts.Player;
 using Code.Scripts.Systems;
-using UnityEngine;
 using Zenject;
 
 namespace Code.Scripts.Installers
@@ -10,7 +7,8 @@ namespace Code.Scripts.Installers
     {
         public override void InstallBindings()
         {
-            Container.Bind<PlayerMoveSystem>().AsSingle().NonLazy();
+            Container.BindInterfacesTo<PlayerMoveSystem>().AsSingle().NonLazy();
+            Container.BindInterfacesTo<PlayerShootingSystem>().AsSingle().NonLazy();
         }
     }
 }
