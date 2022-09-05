@@ -11,6 +11,7 @@ namespace Code.Scripts.Installers
         public override void InstallBindings()
         {
             Container.Bind<PlayerMoveSystem>().AsSingle().NonLazy();
+            
         }
     }
 }
