@@ -426,7 +426,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2798722228461964444, guid: 3950cddf40b0c304981ba0dc7ef8f070, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2798722228461964444, guid: 3950cddf40b0c304981ba0dc7ef8f070, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -616,10 +616,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4525073285973361811, guid: 4e6445303ef81784595f6751528558dc, type: 3}
-      propertyPath: systemsRunner
-      value: 
-      objectReference: {fileID: 302169641}
     - target: {fileID: 6152004368124105508, guid: 4e6445303ef81784595f6751528558dc, type: 3}
       propertyPath: _playerShip
       value: 

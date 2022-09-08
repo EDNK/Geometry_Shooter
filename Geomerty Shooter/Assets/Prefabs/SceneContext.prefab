@@ -43,6 +43,65 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84eb1d121756fa543b45ff6fcbf8c7e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &5427657558029199974
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7008006060983083155}
+  - component: {fileID: 1422860973649598494}
+  - component: {fileID: 2008234881688538322}
+  m_Layer: 0
+  m_Name: AssetResourcesInstaller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7008006060983083155
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5427657558029199974}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7810560448222697119}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1422860973649598494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5427657558029199974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b404dd6f21f4824cbcc22bca871ca99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _assetDictionary: {fileID: 2008234881688538322}
+--- !u!114 &2008234881688538322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5427657558029199974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44347b24cb87f784a83d2346d987243d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _requiredAssets:
+  - {fileID: 6858480030665809637, guid: 2fe86bde0f4d5f74782335300d316a59, type: 3}
 --- !u!1 &7810560446402692425
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,6 +176,7 @@ Transform:
   m_Children:
   - {fileID: 7810560446402692426}
   - {fileID: 1207736184871747525}
+  - {fileID: 7008006060983083155}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -136,6 +196,7 @@ MonoBehaviour:
   _monoInstallers:
   - {fileID: 6152004368124105508}
   - {fileID: 4525073285973361811}
+  - {fileID: 1422860973649598494}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:

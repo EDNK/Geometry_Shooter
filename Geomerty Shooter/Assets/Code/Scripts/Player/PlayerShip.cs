@@ -1,22 +1,38 @@
+using System;
+using System.Collections.Generic;
+using Code.Scripts.Weapons;
 using UnityEngine;
 
 namespace Code.Scripts.Player
 {
     public class PlayerShip : MonoBehaviour
     {
-        private float _speed;
-        // BULLET REF POINTS
-        // WEAPON
+        [SerializeField] private Transform[] _spawnPoints;
+        private IWeapon _weapon;
+
+        private void Awake()
+        {
+            _weapon = new SimpleWeapon();
+        }
+
+        public IEnumerable<Transform> GetSuitableFirePosTransforms(int bulletsCount)
+        {
+            return _spawnPoints;
+        }
 
         public float GetShootCooldown()
         {
-            //TODO GET COOLDOWN FROM WEAPON
-            return 5f;
+            return _weapon.GetShootCooldown();
         }
 
-        public void GetWeapon()
+        public void SetNewWeapon(IWeapon weapon)
         {
-            return;
+            _weapon = weapon;
+        }
+
+        public IWeapon GetWeapon()
+        {
+            return _weapon;
         }
     }
 }

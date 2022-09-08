@@ -1,4 +1,7 @@
-public interface IExecutiveSystem
+namespace Code.Scripts.Systems
 {
-    void Execute();
+    public interface IExecutiveSystem
+    {
+        void Execute();
+    }
 }

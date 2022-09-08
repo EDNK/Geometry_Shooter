@@ -1,5 +1,6 @@
 using System.Numerics;
 using Code.Scripts.Weapons.Bullets;
+using UnityEngine;
 
 namespace Code.Scripts.Weapons
 {
@@ -8,6 +9,6 @@ namespace Code.Scripts.Weapons
         BigInteger GetWeaponDamage();
         float GetShootCooldown();
         int GetMaxBulletsAtShot();
-        Bullet GetBullet();
+        string GetBulletPrefabName();
     }
 }
