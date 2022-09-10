@@ -41,6 +41,7 @@ namespace Code.Scripts.Systems
             var weapon = _playerShip.GetWeapon();
             var transforms = _playerShip.GetSuitableFirePosTransforms(weapon.GetMaxBulletsAtShot());
             var bulletPrefab = _assetDictionary.GetAsset(weapon.GetBulletPrefabName()).GetComponent<Bullet>();
+            //TODO WRITE A BULLET FACTORY
             
             var bulletsToInstantiate = transforms.Select(transform =>
                 Object.Instantiate(bulletPrefab, transform.position, Quaternion.identity, _bulletParent)).ToList();
