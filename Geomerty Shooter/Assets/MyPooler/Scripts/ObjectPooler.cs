@@ -46,7 +46,7 @@ namespace MyPooler
         private int extensionSize;
         public List<Pool> pools;
         public Dictionary<string, Transform> parents;
-        public Dictionary<string, Queue<GameObject>> poolDictionary;
+        public Dictionary<string, Stack<GameObject>> poolDictionary;
         public Dictionary<string, List<GameObject>> activeObjects;
         public UnityAction onResetPools;
 
@@ -69,7 +69,7 @@ namespace MyPooler
             GameObject o = null;
             if (poolDictionary[tag].Count > 0)
             {
-                o = poolDictionary[tag].Dequeue();
+                o = poolDictionary[tag].Pop();
             }
             else
             {
@@ -148,7 +148,7 @@ namespace MyPooler
                 return;
             }
             activeObjects[tag].Remove(o);
-            poolDictionary[tag].Enqueue(o);
+            poolDictionary[tag].Push(o);
             o.SetActive(false);
             if(onResetPools != null) onResetPools -= o.GetComponent<IPooledObject>().DiscardToPool;
         }
@@ -184,7 +184,7 @@ namespace MyPooler
 
         void CreatePools()
         {
-            poolDictionary = new Dictionary<string, Queue<GameObject>>();
+            poolDictionary = new Dictionary<string, Stack<GameObject>>();
             parents = new Dictionary<string, Transform>();
             activeObjects = new Dictionary<string, List<GameObject>>();
 
@@ -194,12 +194,12 @@ namespace MyPooler
                 poolObject.transform.SetParent(this.transform);
                 parents.Add(pool.tag, poolObject.transform);
                 activeObjects.Add(pool.tag, new List<GameObject>());
-                Queue<GameObject> objectPool = new Queue<GameObject>();
+                Stack<GameObject> objectPool = new Stack<GameObject>();
                 for (int i = 0; i < pool.amount; i++)
                 {
                     GameObject o = Instantiate(pool.prefab);
                     o.SetActive(false);
-                    objectPool.Enqueue(o);
+                    objectPool.Push(o);
                     o.transform.SetParent(poolObject.transform);
                 }
                 poolDictionary.Add(pool.tag, objectPool);
