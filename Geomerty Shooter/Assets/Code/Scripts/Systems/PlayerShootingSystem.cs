@@ -45,6 +45,7 @@ namespace Code.Scripts.Systems
             
             var bulletsToInstantiate = transforms.Select(transform =>
                 Object.Instantiate(bulletPrefab, transform.position, Quaternion.identity, _bulletParent)).ToList();
+            bulletsToInstantiate.ForEach(x => x.SetupBullet());
             
             _bulletMovableSystem.AddNewBullets(bulletsToInstantiate);
         }

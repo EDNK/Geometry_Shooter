@@ -4,16 +4,39 @@ using UnityEngine;
 
 namespace Code.Scripts.Systems
 {
-    public class BulletMovableSystem : IExecutiveSystem
+    public class BulletMovableSystem : IExecutiveSystem, IInitializableSystem
     {
         private readonly List<Bullet> _bullets = new List<Bullet>();
-        
+        private Camera _camera;
+
+        public void Initialize()
+        {
+            _camera = Camera.main;
+        }
+
         public void Execute()
         {
-            foreach (var bullet in _bullets)
+            var count = _bullets.Count;
+            var deleted = 0;
+
+            for (var i = 0; i < count; i++)
             {
-                bullet.transform.position += bullet.Speed * Vector3.up * Time.deltaTime;
+                if (BulletTooFar(_bullets[i - deleted]))
+                {
+                    var bullet = _bullets[i - deleted];
+                    _bullets.RemoveAt(i - deleted);
+                    Object.Destroy(bullet.gameObject);
+                    deleted++;
+                    continue;
+                }
+
+                _bullets[i - deleted].transform.position += _bullets[i - deleted].Speed * Vector3.up * Time.deltaTime;
             }
+        }
+
+        private bool BulletTooFar(Bullet bullet)
+        {
+            return _camera.pixelHeight < _camera.WorldToScreenPoint(bullet.transform.position).y;
         }
 
         public void AddNewBullets(IEnumerable<Bullet> bullets)

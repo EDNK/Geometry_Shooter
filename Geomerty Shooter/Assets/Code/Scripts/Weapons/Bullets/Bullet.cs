@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Code.Scripts.Weapons.Bullets
 {
-    public abstract class Bullet : MonoBehaviour, IPooledObject
+    public class Bullet : MonoBehaviour, IPooledObject
     {
         public float Speed { private set; get; }
         private const float DefaultSpeed = 10f;
         private string _prefabName;
-
-        private void Awake()
+        
+        public void SetupBullet()
         {
             Speed = DefaultSpeed;
             _prefabName = gameObject.name;
@@ -18,7 +18,6 @@ namespace Code.Scripts.Weapons.Bullets
 
         public void OnRequestedFromPool()
         {
-            return;
         }
 
         public void DiscardToPool()
