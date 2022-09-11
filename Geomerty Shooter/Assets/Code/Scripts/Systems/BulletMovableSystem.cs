@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Code.Scripts.Weapons.Bullets;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ namespace Code.Scripts.Systems
 {
     public class BulletMovableSystem : IExecutiveSystem, IInitializableSystem
     {
-        private readonly List<Bullet> _bullets = new List<Bullet>();
+        private readonly Dictionary<int, Bullet> _bullets = new Dictionary<int, Bullet>();
         private Camera _camera;
 
         public void Initialize()
@@ -16,21 +17,17 @@ namespace Code.Scripts.Systems
 
         public void Execute()
         {
-            var count = _bullets.Count;
-            var deleted = 0;
-
-            for (var i = 0; i < count; i++)
+            var objectsToDelete = _bullets.Keys.Where(x => BulletTooFar(_bullets[x])).ToList();
+            foreach (var expiredBullet in objectsToDelete)
             {
-                if (BulletTooFar(_bullets[i - deleted]))
-                {
-                    var bullet = _bullets[i - deleted];
-                    _bullets.RemoveAt(i - deleted);
-                    Object.Destroy(bullet.gameObject);
-                    deleted++;
-                    continue;
-                }
+                var bullet = _bullets[expiredBullet];
+                _bullets.Remove(expiredBullet);
+                bullet.DiscardToPool();
+            }
 
-                _bullets[i - deleted].transform.position += _bullets[i - deleted].Speed * Vector3.up * Time.deltaTime;
+            foreach (Bullet bullet in _bullets.Keys.Select(key => _bullets[key]))
+            {
+                bullet.transform.position += bullet.Speed * Vector3.up * Time.deltaTime;
             }
         }
 
@@ -41,7 +38,10 @@ namespace Code.Scripts.Systems
 
         public void AddNewBullets(IEnumerable<Bullet> bullets)
         {
-            _bullets.AddRange(bullets);
+            foreach (var bullet in bullets)
+            {
+                _bullets.Add(bullet.GetInstanceID(), bullet);
+            }
         }
     }
 }

@@ -4,10 +4,18 @@ namespace Code.Scripts.Weapons
 {
     public class SimpleWeapon : IWeapon
     {
-        private BigInteger _damage = 1;
-        private float _shootCooldown = 0.05f;
-        private int MaxBulletsAtShot = 5;
-        private string BulletPrefabName = "SimpleBullet";
+        private BigInteger _damage;
+        private float _shootCooldown;
+        private int MaxBulletsAtShot;
+        private string BulletPrefabName;
+
+        public SimpleWeapon()
+        {
+            _damage = 1;
+            _shootCooldown = 0.7f;
+            MaxBulletsAtShot = 5;
+            BulletPrefabName = "SimpleBullet";
+        }
 
         public BigInteger GetWeaponDamage()
         {

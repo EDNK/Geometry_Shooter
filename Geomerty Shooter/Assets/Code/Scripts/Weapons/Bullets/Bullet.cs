@@ -9,11 +9,11 @@ namespace Code.Scripts.Weapons.Bullets
         public float Speed { private set; get; }
         private const float DefaultSpeed = 10f;
         private string _prefabName;
-        
-        public void SetupBullet()
+
+        public void SetupBullet(string prefabName, float speed = DefaultSpeed)
         {
             Speed = DefaultSpeed;
-            _prefabName = gameObject.name;
+            _prefabName = prefabName;
         }
 
         public void OnRequestedFromPool()

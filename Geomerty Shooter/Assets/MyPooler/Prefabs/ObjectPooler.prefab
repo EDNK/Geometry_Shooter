@@ -43,5 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 008cfb7e5235b104ab694a4bab1e66da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDebug: 0
   shouldDestroyOnLoad: 1
-  pools: []
+  pools:
+  - tag: SimpleBullet
+    prefab: {fileID: 6858480030665809637, guid: 2fe86bde0f4d5f74782335300d316a59, type: 3}
+    amount: 50
+    shouldExpandPool: 1
+    extensionLimit: 0

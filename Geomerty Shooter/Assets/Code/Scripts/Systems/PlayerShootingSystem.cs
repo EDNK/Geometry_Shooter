@@ -1,7 +1,10 @@
+using System.Collections.Generic;
 using System.Linq;
 using Code.Scripts.AssetsResources;
 using Code.Scripts.Player;
 using Code.Scripts.Weapons.Bullets;
+using MyPooler;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Code.Scripts.Systems
@@ -12,16 +15,17 @@ namespace Code.Scripts.Systems
         private readonly AssetDictionary _assetDictionary;
         private readonly BulletMovableSystem _bulletMovableSystem;
 
-        private Transform _bulletParent; 
+        private Transform _bulletParent;
         private float _lastShotTime = 0;
 
-        public PlayerShootingSystem(PlayerShip playerShip, AssetDictionary assetDictionary, BulletMovableSystem bulletMovableSystem)
+        public PlayerShootingSystem(PlayerShip playerShip, AssetDictionary assetDictionary,
+            BulletMovableSystem bulletMovableSystem)
         {
             _playerShip = playerShip;
             _assetDictionary = assetDictionary;
             _bulletMovableSystem = bulletMovableSystem;
         }
-        
+
         public void Initialize()
         {
             _bulletParent = new GameObject("BulletsParent").transform;
@@ -29,7 +33,7 @@ namespace Code.Scripts.Systems
 
         public void Execute()
         {
-            if (Input.GetMouseButton(0) && CanShoot())
+            if (CanShoot() && Input.GetMouseButton(0))
             {
                 PerformShoot();
             }
@@ -42,12 +46,21 @@ namespace Code.Scripts.Systems
             var transforms = _playerShip.GetSuitableFirePosTransforms(weapon.GetMaxBulletsAtShot());
             var bulletPrefab = _assetDictionary.GetAsset(weapon.GetBulletPrefabName()).GetComponent<Bullet>();
             //TODO WRITE A BULLET FACTORY
-            
-            var bulletsToInstantiate = transforms.Select(transform =>
-                Object.Instantiate(bulletPrefab, transform.position, Quaternion.identity, _bulletParent)).ToList();
-            bulletsToInstantiate.ForEach(x => x.SetupBullet());
+
+            var bulletsToInstantiate = CreateBullets(transforms, bulletPrefab);
+            bulletsToInstantiate.ForEach(x => x.SetupBullet(bulletPrefab.name));
             
             _bulletMovableSystem.AddNewBullets(bulletsToInstantiate);
+        }
+
+        private List<Bullet> CreateBullets(IEnumerable<Transform> transforms, Bullet bulletPrefab)
+        {
+            var bulletsToInstantiate = new List<Bullet>(5);
+            bulletsToInstantiate.AddRange(transforms
+                .Select(transform =>
+                    ObjectPooler.Instance.GetFromPool(bulletPrefab.name, transform.position, quaternion.identity))
+                .Select(newBullet => newBullet.GetComponent<Bullet>()));
+            return bulletsToInstantiate;
         }
 
         private bool CanShoot()
