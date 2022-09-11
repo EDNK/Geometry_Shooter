@@ -9,7 +9,8 @@ namespace Code.Scripts.Installers
         {
             Container.BindInterfacesTo<PlayerMoveSystem>().AsSingle().NonLazy();
             Container.BindInterfacesTo<PlayerShootingSystem>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<BulletMovableSystem>().AsSingle().NonLazy();
+            Container.BindInterfacesTo<BulletMovableSystem>().AsSingle().NonLazy();
+            Container.BindInterfacesTo<BulletRemoveSystem>().AsSingle().NonLazy();
         }
     }
 }

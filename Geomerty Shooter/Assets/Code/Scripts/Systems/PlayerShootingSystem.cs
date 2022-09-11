@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Code.Scripts.AssetsResources;
 using Code.Scripts.Player;
+using Code.Scripts.ShellObjects;
 using Code.Scripts.Weapons.Bullets;
 using MyPooler;
 using Unity.Mathematics;
@@ -9,26 +10,19 @@ using UnityEngine;
 
 namespace Code.Scripts.Systems
 {
-    public class PlayerShootingSystem : IExecutiveSystem, IInitializableSystem
+    public class PlayerShootingSystem : IExecutiveSystem
     {
         private readonly PlayerShip _playerShip;
         private readonly AssetDictionary _assetDictionary;
-        private readonly BulletMovableSystem _bulletMovableSystem;
+        private readonly AliveBullets _aliveBullets;
 
-        private Transform _bulletParent;
         private float _lastShotTime = 0;
 
-        public PlayerShootingSystem(PlayerShip playerShip, AssetDictionary assetDictionary,
-            BulletMovableSystem bulletMovableSystem)
+        public PlayerShootingSystem(PlayerShip playerShip, AssetDictionary assetDictionary, AliveBullets aliveBullets)
         {
             _playerShip = playerShip;
             _assetDictionary = assetDictionary;
-            _bulletMovableSystem = bulletMovableSystem;
-        }
-
-        public void Initialize()
-        {
-            _bulletParent = new GameObject("BulletsParent").transform;
+            _aliveBullets = aliveBullets;
         }
 
         public void Execute()
@@ -49,8 +43,8 @@ namespace Code.Scripts.Systems
 
             var bulletsToInstantiate = CreateBullets(transforms, bulletPrefab);
             bulletsToInstantiate.ForEach(x => x.SetupBullet(bulletPrefab.name));
-            
-            _bulletMovableSystem.AddNewBullets(bulletsToInstantiate);
+
+            _aliveBullets.AddBullets(bulletsToInstantiate);
         }
 
         private List<Bullet> CreateBullets(IEnumerable<Transform> transforms, Bullet bulletPrefab)
