@@ -1,4 +1,4 @@
-using System.Linq;
+using System.Collections.Generic;
 using Code.Scripts.ShellObjects;
 using Code.Scripts.Weapons.Bullets;
 using UnityEngine;
@@ -7,12 +7,12 @@ namespace Code.Scripts.Systems
 {
     public class BulletRemoveSystem : IInitializableSystem, IExecutiveSystem
     {
-        private readonly AliveBullets _aliveBullets;
+        private readonly List<Bullet> _aliveBullets;
         private Camera _camera;
 
         public BulletRemoveSystem(AliveBullets aliveBullets)
         {
-            _aliveBullets = aliveBullets;
+            _aliveBullets = aliveBullets.Bullets;
         }
 
         public void Initialize()
@@ -22,10 +22,23 @@ namespace Code.Scripts.Systems
 
         public void Execute()
         {
-            var objectsToDelete = _aliveBullets.GetBullets().Where(BulletTooFar)
-                .Select(x => x.gameObject.GetInstanceID());
+            for (var i = _aliveBullets.Count - 1; i >= 0; i--)
+            {
+                if (!BulletTooFar(_aliveBullets[i]))
+                {
+                    continue;
+                }
 
-            _aliveBullets.RemoveBullets(objectsToDelete);
+                RemoveBulletFromList(i);
+            }
+        }
+
+        private void RemoveBulletFromList(int i)
+        {
+            var bullet = _aliveBullets[i];
+            bullet.DiscardToPool();
+            _aliveBullets[i] = _aliveBullets[_aliveBullets.Count - 1];
+            _aliveBullets.RemoveAt(_aliveBullets.Count - 1);
         }
 
         private bool BulletTooFar(Bullet bullet)
