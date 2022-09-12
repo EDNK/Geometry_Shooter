@@ -11,6 +11,7 @@ namespace Code.Scripts.Installers
             Container.BindInterfacesTo<PlayerShootingSystem>().AsSingle().NonLazy();
             Container.BindInterfacesTo<BulletMovableSystem>().AsSingle().NonLazy();
             Container.BindInterfacesTo<BulletRemoveSystem>().AsSingle().NonLazy();
+            Container.BindInterfacesTo<EnemySpawningSystem>().AsSingle().NonLazy();
         }
     }
 }
