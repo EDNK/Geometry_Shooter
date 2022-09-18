@@ -12,6 +12,7 @@ namespace Code.Scripts.Installers
             Container.BindInterfacesTo<BulletMovableSystem>().AsSingle().NonLazy();
             Container.BindInterfacesTo<BulletRemoveSystem>().AsSingle().NonLazy();
             Container.BindInterfacesTo<EnemySpawningSystem>().AsSingle().NonLazy();
+            Container.BindInterfacesTo<EnemyMoveSystem>().AsSingle().NonLazy();
         }
     }
 }

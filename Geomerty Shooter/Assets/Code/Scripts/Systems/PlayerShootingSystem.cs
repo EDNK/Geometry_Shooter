@@ -50,10 +50,14 @@ namespace Code.Scripts.Systems
         private List<Bullet> CreateBullets(IEnumerable<Transform> transforms, Bullet bulletPrefab)
         {
             var bulletsToInstantiate = new List<Bullet>(5);
-            bulletsToInstantiate.AddRange(transforms
-                .Select(transform =>
-                    ObjectPooler.Instance.GetFromPool(bulletPrefab.name, transform.position, quaternion.identity))
-                .Select(newBullet => newBullet.GetComponent<Bullet>()));
+            foreach (var transform in transforms)
+            {
+                var bullet = ObjectPooler.Instance
+                    .GetFromPool(bulletPrefab.name, transform.position, Quaternion.identity).GetComponent<Bullet>();
+                bullet.gameObject.transform.position = transform.position;
+                bulletsToInstantiate.Add(bullet);
+            }
+
             return bulletsToInstantiate;
         }
 

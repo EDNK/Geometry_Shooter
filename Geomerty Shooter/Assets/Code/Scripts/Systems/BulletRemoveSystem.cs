@@ -24,7 +24,7 @@ namespace Code.Scripts.Systems
         {
             for (var i = _aliveBullets.Count - 1; i >= 0; i--)
             {
-                if (!BulletTooFar(_aliveBullets[i]))
+                if (!BulletTooFar(_aliveBullets[i]) && !_aliveBullets[i].TouchedEnemy)
                 {
                     continue;
                 }

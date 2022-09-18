@@ -12,7 +12,7 @@ namespace Code.Scripts.Weapons
         public SimpleWeapon()
         {
             _damage = 1;
-            _shootCooldown = 0.7f;
+            _shootCooldown = 0.07f;
             MaxBulletsAtShot = 5;
             BulletPrefabName = "SimpleBullet";
         }

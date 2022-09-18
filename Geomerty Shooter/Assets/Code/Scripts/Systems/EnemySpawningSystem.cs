@@ -1,6 +1,9 @@
-﻿using Code.Scripts.Enemies;
+﻿using System.Numerics;
+using Code.Scripts.Enemies;
 using MyPooler;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
 
 namespace Code.Scripts.Systems
 {
@@ -12,6 +15,7 @@ namespace Code.Scripts.Systems
 
         private float _spawningDelay = 2f;
         private int _firstPackSpawn = 10;
+        private BigInteger _enemyHealth = 10;
         private float _lastSpawnTime;
 
         public EnemySpawningSystem(EnemiesVariantsHolder enemiesVariantsHolder, AliveEnemies aliveEnemies)
@@ -44,6 +48,7 @@ namespace Code.Scripts.Systems
                 var enemyToSpawn = _enemiesVariantsHolder.Enemies[Random.Range(0, enemiesLength)];
                 var newPos = RandomPositionForEnemy();
                 var enemy = ObjectPooler.Instance.GetFromPool(enemyToSpawn.name, newPos, Quaternion.identity).GetComponent<Enemy>();
+                enemy.SetupEnemy(enemyToSpawn.name, _enemyHealth);
 
                 _aliveEnemies.AddEnemy(enemy);
             }
