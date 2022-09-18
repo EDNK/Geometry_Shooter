@@ -48,6 +48,11 @@ MonoBehaviour:
   pools:
   - tag: SimpleBullet
     prefab: {fileID: 6858480030665809637, guid: 2fe86bde0f4d5f74782335300d316a59, type: 3}
-    amount: 50
+    amount: 10
+    shouldExpandPool: 1
+    extensionLimit: 0
+  - tag: Triangle
+    prefab: {fileID: 8322913618259318660, guid: c17e71a141a7ba649b65c9382ceebad3, type: 3}
+    amount: 10
     shouldExpandPool: 1
     extensionLimit: 0

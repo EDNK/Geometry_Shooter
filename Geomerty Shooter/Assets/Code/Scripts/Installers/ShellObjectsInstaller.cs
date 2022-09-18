@@ -8,6 +8,7 @@ namespace Code.Scripts.Installers
         public override void InstallBindings()
         {
             Container.Bind<AliveBullets>().AsSingle();
+            Container.Bind<AliveEnemies>().AsSingle();
         }
     }
 }

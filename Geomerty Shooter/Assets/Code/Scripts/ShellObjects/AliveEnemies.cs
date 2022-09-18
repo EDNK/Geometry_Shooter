@@ -1,18 +1,22 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using Code.Scripts.Enemies;
 
-public class AliveEnemies : MonoBehaviour
+public class AliveEnemies
 {
-    // Start is called before the first frame update
-    void Start()
+    public List<Enemy> Enemies { get; }
+
+    public AliveEnemies()
     {
-        
+        Enemies = new List<Enemy>(20);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AddEnemies(IEnumerable<Enemy> enemies)
     {
-        
+        Enemies.AddRange(enemies);
+    }
+
+    public void AddEnemy(Enemy enemy)
+    {
+        Enemies.Add(enemy);
     }
 }
