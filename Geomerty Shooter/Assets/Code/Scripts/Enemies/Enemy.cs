@@ -52,14 +52,11 @@ namespace Code.Scripts.Enemies
         public void TakeDamage(BigInteger damage)
         {
             HealthPoints -= damage;
-            if (HealthPoints <= 0)
-            {
-                DiscardToPool();
-            }
         }
 
         public void OnRequestedFromPool()
         {
+            HealthPoints = 1;
         }
 
         public void DiscardToPool()

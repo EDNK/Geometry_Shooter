@@ -15,18 +15,18 @@ namespace Code.Scripts.Weapons.Bullets
         private BigInteger _defaultDamage = 1;
         private string _prefabName;
 
-        public bool TouchedEnemy { get; private set; }
+        public bool HaveToDestroy { get; private set; }
 
         public void SetupBullet(string prefabName, float speed = DefaultSpeed)
         {
             Speed = DefaultSpeed;
             _prefabName = prefabName;
             Damage = _defaultDamage;
-            TouchedEnemy = false;
         }
 
         public void OnRequestedFromPool()
         {
+            HaveToDestroy = false;
         }
 
         public void DiscardToPool()
@@ -41,7 +41,7 @@ namespace Code.Scripts.Weapons.Bullets
                 return;
             }
 
-            TouchedEnemy = true;
+            HaveToDestroy = true;
             enemy.TakeDamage(Damage);
         }
     }
